@@ -3,7 +3,7 @@ import Header from '../Layout/Header'
 
 const Root = () => {
   return (
-    <div className="min-h-screen min-w-96 flex flex-col">
+    <div className="min-h-screen min-w-[400px] flex flex-col">
       <Header />
       <Outlet />
     </div>
