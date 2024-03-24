@@ -7,18 +7,15 @@ export interface IBlock {
   flagged: boolean
 }
 
-export interface IGameState {
-  Running: boolean
-  Paused: boolean
-  Over: boolean
-  score: number
-  revealedBlocks: number
-  flaggedBlocks: number
-}
-
 export interface BlockProps extends IBlock {
   row: number
   col: number
+}
+
+export interface IGameState {
+  Paused: boolean
+  win: boolean
+  Over: boolean
 }
 
 export interface IGameContext {
@@ -27,26 +24,27 @@ export interface IGameContext {
   mines: number
   gameBoard: IBlock[][]
   gameState: IGameState
+  revealedBlocks: number
+  totalFlagsUsed: number
+  FlaggedBlocks: number
+  score: number
   setCol: Dispatch<SetStateAction<number>>
   setRow: Dispatch<SetStateAction<number>>
   setMines: Dispatch<SetStateAction<number>>
   setGameBoard: Dispatch<SetStateAction<IBlock[][]>>
   setGameState: Dispatch<SetStateAction<IGameState>>
+  setRevealedBlocks: Dispatch<SetStateAction<number>>
+  setFlaggedBlocks: Dispatch<SetStateAction<number>>
+  BlockOnClick: IBlockOnClick
+  resetGame: () => void
 }
 
-export type IFlagBlock = (
-  e: MouseEvent<HTMLDivElement>,
-  gameBoard: IBlock[][],
-  setGameBoard: Dispatch<SetStateAction<IBlock[][]>>,
+export type IBlockOnClick = (e: MouseEvent<HTMLDivElement>, row: number, column: number) => void
+export type IReveal = (
   row: number,
   col: number,
-  gameState: IGameState,
-  setGameState: Dispatch<SetStateAction<IGameState>>,
-) => void
-
-export type IRevealBlock = (
   gameBoard: IBlock[][],
-  row: number,
-  col: number,
-  setGameState: Dispatch<SetStateAction<IGameState>>,
-) => IBlock
+  setFlaggedBlocks: Dispatch<SetStateAction<number>>,
+  setRevealedBlocks: Dispatch<SetStateAction<number>>,
+  setScore: Dispatch<SetStateAction<number>>,
+) => IBlock | void
