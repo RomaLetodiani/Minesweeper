@@ -21,7 +21,6 @@ export const GameProvider = ({ children }: { children: ReactNode }) => {
   const [revealedBlocks, setRevealedBlocks] = useState(1)
   const [FlaggedBlocks, setFlaggedBlocks] = useState(0)
   const [totalFlagsUsed, setTotalFlagsUsed] = useState(0)
-  console.log('🚀 ~ GameProvider ~ totalFlagsUsed:', totalFlagsUsed)
 
   const [gameBoard, setGameBoard] = useState<IBlock[][]>(GameBoardGenerator(row, col, mines))
 
@@ -49,7 +48,6 @@ export const GameProvider = ({ children }: { children: ReactNode }) => {
         setGameState((prev) => ({ ...prev, Over: true }))
       }
 
-      console.log('Row', row * col - mines, revealedBlocks)
       if (row * col - mines === revealedBlocks) {
         setGameState((prev) => ({ ...prev, win: true }))
       }
@@ -73,6 +71,8 @@ export const GameProvider = ({ children }: { children: ReactNode }) => {
   const resetGame = () => {
     setRevealedBlocks(1)
     setFlaggedBlocks(0)
+    setTotalFlagsUsed(0)
+    setScore(0)
     setGameBoard(GameBoardGenerator(row, col, mines))
     setGameState(initialGameState)
   }
