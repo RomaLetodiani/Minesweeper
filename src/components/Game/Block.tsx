@@ -16,7 +16,7 @@ const Block = ({ hasMine, revealed, surroundingMines, flagged, row, col }: Block
   const { BlockOnClick } = useGame()
   return (
     <div
-      className="relative flex justify-center items-center border border-slate-800 w-[clamp(24px,5vw,28px)] h-[clamp(24px,5vw,28px)] font-extrabold"
+      className="relative flex justify-center items-center border border-slate-800 w-[clamp(22px,5vw,28px)] h-[clamp(24px,5vw,28px)] font-extrabold"
       onContextMenu={(e) => BlockOnClick(e, row, col)}
       onClick={(e) => BlockOnClick(e, row, col)}
     >
