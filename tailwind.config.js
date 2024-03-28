@@ -14,7 +14,7 @@ export default {
         'mines-8': '#660033',
       },
       boxShadow: {
-        Block: 'inset 3px 3px 5px #bababa, inset -3px -3px 5px #ffffff',
+        Block: 'inset 3px 3px 5px #bababa, inset -3px -3px 5px #002d6d',
         Blocks: '0px 0px 20px -5px #5f6984',
       },
     },
