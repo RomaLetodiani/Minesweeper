@@ -37,7 +37,9 @@ const Header = () => {
   const time = formatTime(seconds)
   return (
     <div
-      className={`flex ${mode && 'justify-between'} bg-[#333333] justify-center items-center p-5`}
+      className={`flex ${
+        mode && 'justify-between'
+      } drop-shadow-xl bg-slate-900 justify-center items-center p-5`}
     >
       {!mode && (
         <div className="max-w-lg">
