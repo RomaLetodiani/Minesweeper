@@ -1,4 +1,6 @@
+import { useEffect, useRef } from 'react'
 import { useGame } from '../../Contexts/GameContext'
+import useLongPress from '../../hooks/useLongPress'
 import { BlockProps } from './Interfaces'
 
 const mines = [
@@ -13,13 +15,27 @@ const mines = [
   'text-mines-8',
 ]
 const Block = ({ hasMine, revealed, surroundingMines, flagged, row, col }: BlockProps) => {
+  const blockRef = useRef<HTMLDivElement>(null)
+
+  const isLongPressed = useLongPress(blockRef)
+  useEffect(() => {
+    if (isLongPressed) {
+      // Trigger right-click functionality
+      blockRef.current?.click()
+    }
+  }, [isLongPressed])
+
   const { BlockOnClick } = useGame()
-  // Block state logic should be
+
+  // Block state logic should be done with background but i was in hurry so did it with tailwind CSS
   return (
     <div
+      ref={blockRef}
       className="relative flex justify-center items-center bg-slate-950 border border-slate-800 w-[clamp(22px,5vw,28px)] h-[clamp(24px,5vw,28px)] font-extrabold"
       onContextMenu={(e) => BlockOnClick(e, row, col)}
-      onClick={(e) => BlockOnClick(e, row, col)}
+      onClick={(e) => {
+        BlockOnClick(e, row, col, isLongPressed)
+      }}
     >
       <span className="select-none">
         {hasMine && revealed ? (
