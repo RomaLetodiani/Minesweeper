@@ -33,12 +33,12 @@ export const GameProvider = ({ children }: { children: ReactNode }) => {
     setGameState(initialGameState)
   }, [row, col, mines])
 
-  const BlockOnClick: IBlockOnClick = (e, x, y) => {
+  const BlockOnClick: IBlockOnClick = (e, x, y, isLongPress) => {
     e.preventDefault()
     if (gameBoard[x][y].revealed) return
     const newGameBoard = [...gameBoard]
 
-    if (e.button === 0) {
+    if (!isLongPress && e.button === 0) {
       console.log('Left mouse button clicked')
       if (newGameBoard[x][y].flagged) return
       newGameBoard[x][y] =
@@ -53,7 +53,7 @@ export const GameProvider = ({ children }: { children: ReactNode }) => {
       }
     }
 
-    if (e.button === 2) {
+    if (e.button === 2 || isLongPress) {
       console.log('Right mouse button clicked')
       if (!gameBoard[x][y].flagged && FlaggedBlocks >= mines) return
       if (newGameBoard[x][y].flagged) {
