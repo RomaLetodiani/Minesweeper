@@ -38,8 +38,8 @@ const Header = () => {
   return (
     <div
       className={`flex ${
-        mode && 'justify-between'
-      } drop-shadow-xl bg-slate-900 justify-center items-center p-5`}
+        mode ? 'justify-between' : 'justify-center'
+      } bg-slate-900 items-center p-5`}
     >
       {!mode && (
         <div className="max-w-lg">
