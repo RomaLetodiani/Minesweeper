@@ -24,7 +24,6 @@ const Block = ({ hasMine, revealed, surroundingMines, flagged, row, col }: Block
       blockRef.current?.click()
     }
   }, [isLongPressed])
-
   const { BlockOnClick } = useGame()
 
   // Block state logic should be done with background but i was in hurry so did it with tailwind CSS
@@ -33,9 +32,7 @@ const Block = ({ hasMine, revealed, surroundingMines, flagged, row, col }: Block
       ref={blockRef}
       className="relative flex justify-center items-center bg-slate-950 border border-slate-800 w-[clamp(22px,5vw,28px)] h-[clamp(24px,5vw,28px)] font-extrabold"
       onContextMenu={(e) => BlockOnClick(e, row, col)}
-      onClick={(e) => {
-        BlockOnClick(e, row, col, isLongPressed)
-      }}
+      onClick={(e) => BlockOnClick(e, row, col, isLongPressed)}
     >
       <span className="select-none">
         {hasMine && revealed ? (
