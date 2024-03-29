@@ -39,7 +39,12 @@ export interface IGameContext {
   resetGame: () => void
 }
 
-export type IBlockOnClick = (e: MouseEvent<HTMLDivElement>, row: number, column: number) => void
+export type IBlockOnClick = (
+  e: MouseEvent<HTMLDivElement>,
+  row: number,
+  column: number,
+  isLongPress?: boolean,
+) => void
 export type IReveal = (
   row: number,
   col: number,
