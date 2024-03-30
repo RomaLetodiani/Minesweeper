@@ -25,13 +25,13 @@ const Game = () => {
       generateRandomDimensions()
     } else {
       setRow(() => {
-        return mode === 'easy' ? 9 : isDesktop || mode === 'intermediate' ? 15 : 40
+        return mode === 'easy' ? 9 : isDesktop || mode === 'amateur' ? 15 : 40
       })
       setCol(() => {
         return mode === 'easy' ? 9 : isDesktop && mode === 'expert' ? 40 : 15
       })
       setMines(() => {
-        return mode === 'easy' ? 10 : mode === 'intermediate' ? 40 : 99
+        return mode === 'easy' ? 10 : mode === 'amateur' ? 40 : 99
       })
     }
   }, [isDesktop])
@@ -46,13 +46,13 @@ const Game = () => {
   }, [row, col, mode])
 
   // easy 9 x 9
-  // intermediate 15 x 15
+  // amateur 15 x 15
   // expert 40 x 15
   // random ? x ?
   return (
-    <div className="flex bg-slate-800  justify-center items-center flex-1 p-5">
+    <div className="flex bg-slate-950 justify-center items-center flex-1 p-5">
       <div
-        className={`shadow-[0px_0px_30px_-5px_#1e293b] overflow-hidden rounded-xl border border-slate-800 `}
+        className={`shadow-[0px_0px_30px_-5px_#1e293b] overflow-hidden border border-slate-800 `}
       >
         {gameBoard?.map((r, index) => (
           <Row key={index} Blocks={r} row={index} />
