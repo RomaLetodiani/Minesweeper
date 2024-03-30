@@ -14,8 +14,12 @@ export default {
         'mines-8': '#660033',
       },
       boxShadow: {
-        Block: 'inset 3px 3px 5px #bababa, inset -3px -3px 5px #002d6d',
-        Blocks: '0px 0px 20px -5px #5f6984',
+        neon: '0 0 5px #08f, 0 0 15px #08f, 0 0 30px #08f',
+        glow: '0 0 2px #fff, inset 0 0 2px #fff, 0 0 5px #08f, 0 0 15px #08f, 0 0 30px #08f',
+        Block: '0 0 2px #fff, inset 0 0 2px #fff, 0 0 5px #08f, 0 0 5px #08f, 0 0 2px #08f',
+      },
+      fontFamily: {
+        rubik: ['Rubik Scribble', 'sans-serif'],
       },
     },
   },
