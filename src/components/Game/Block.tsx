@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react'
 import { useGame } from '../../Contexts/GameContext'
 import useLongPress from '../../hooks/useLongPress'
 import { BlockProps } from './Interfaces'
+import { useParams } from 'react-router-dom'
 
 const mines = [
   '',
@@ -25,14 +26,15 @@ const Block = ({ hasMine, revealed, surroundingMines, flagged, row, col }: Block
     }
   }, [isLongPressed])
   const { BlockOnClick } = useGame()
+  const { mode } = useParams()
 
   // Block state logic should be done with background but i was in hurry so did it with tailwind CSS
   return (
     <div
       ref={blockRef}
-      className="relative flex justify-center items-center bg-slate-950 border border-slate-800 w-[clamp(22px,5vw,28px)] h-[clamp(24px,5vw,28px)] font-extrabold"
-      onContextMenu={(e) => BlockOnClick(e, row, col)}
-      onClick={(e) => BlockOnClick(e, row, col, isLongPressed)}
+      className="relative flex justify-center items-center bg-slate-950 border border-sky-600 w-[clamp(22px,5vw,28px)] h-[clamp(24px,5vw,28px)] font-extrabold"
+      onContextMenu={(e) => BlockOnClick(e, row, col, mode)}
+      onClick={(e) => BlockOnClick(e, row, col, mode, isLongPressed)}
     >
       <span className="select-none">
         {hasMine && revealed ? (
@@ -46,7 +48,7 @@ const Block = ({ hasMine, revealed, surroundingMines, flagged, row, col }: Block
         )}
       </span>
       {!revealed && (
-        <div className="absolute select-none w-full h-full pointer-events-none bg-[#747cd5] shadow-Block z-10">
+        <div className="absolute select-none w-full h-full pointer-events-none bg-cyan-950 shadow-Block z-10">
           {flagged && '🚩'}
         </div>
       )}
