@@ -43,6 +43,7 @@ export type IBlockOnClick = (
   e: MouseEvent<HTMLDivElement>,
   row: number,
   column: number,
+  mode?: string,
   isLongPress?: boolean,
 ) => void
 export type IReveal = (
