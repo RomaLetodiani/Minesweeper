@@ -7,7 +7,7 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 
 const Button = ({ children, additionalStyles, ...rest }: ButtonProps) => {
   return (
-    <button className={twMerge('rounded-xl px-5 py-3', additionalStyles)} {...rest}>
+    <button className={twMerge('rounded-xl cursor-pointer px-5 py-3', additionalStyles)} {...rest}>
       {children}
     </button>
   )
