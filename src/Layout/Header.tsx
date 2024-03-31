@@ -1,8 +1,7 @@
 import { Link, useParams } from 'react-router-dom'
-// import logo from '../assets/logo.png'
 import { useGame } from '../Contexts/GameContext'
 import useTimer from '../hooks/useTimer'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import Modal from '../components/Modal'
 import useMediaQuery from '../hooks/useMediaQuery'
 import Button from '../components/UI/Button'
@@ -16,22 +15,38 @@ const Header = () => {
   const { seconds, resetTimer, isRunning, startTimer, pauseTimer } = useTimer()
   const { hours, minutes, Seconds } = formatTime(seconds)
   const isDesktop = useMediaQuery('(min-width: 1025px)')
+  const [isModalOpen, setIsModalOpen] = useState(false)
 
   useEffect(() => {
-    resetTimer()
-    resetGame()
+    handleReset()
   }, [mode, isDesktop])
 
   useEffect(() => {
     if (gameState.Over || gameState.win) {
       pauseTimer()
+      setIsModalOpen(true)
     }
   }, [gameState.Over, gameState.win])
 
+  const handleReset = () => {
+    resetTimer()
+    resetGame()
+    setIsModalOpen(false)
+  }
+
+  const handlePreview = () => setIsModalOpen(false)
+
   const handlePause = () => {
+    if (gameState.Over || gameState.win) {
+      setIsModalOpen(true)
+      return
+    }
+
     if (isRunning) {
+      setIsModalOpen(true)
       pauseTimer()
     } else {
+      setIsModalOpen(false)
       startTimer()
     }
 
@@ -51,7 +66,7 @@ const Header = () => {
       )}
       {mode && (
         <>
-          {(gameState.Paused || gameState.Over || gameState.win) && (
+          {isModalOpen && (
             <Modal>
               <div className="flex flex-col justify-center items-center gap-5 text-sky-200">
                 <p className="text-2xl">
@@ -81,6 +96,11 @@ const Header = () => {
                     )}
                   </div>
                 </div>
+                {(gameState.Over || gameState.win) && (
+                  <Button additionalStyles="border shadow-Block" onClick={handlePreview}>
+                    <p>Preview Game Board</p>
+                  </Button>
+                )}
                 <div className="flex gap-8 text-xl mt-5">
                   <Link to={'/'}>
                     <Button
@@ -93,13 +113,7 @@ const Header = () => {
                       Home
                     </Button>
                   </Link>
-                  <Button
-                    additionalStyles="shadow-glow border px-8 "
-                    onClick={() => {
-                      resetTimer()
-                      resetGame()
-                    }}
-                  >
+                  <Button additionalStyles="shadow-glow border px-8 " onClick={handleReset}>
                     Reset
                   </Button>
                 </div>
@@ -131,7 +145,9 @@ const Header = () => {
             }`}
             onClick={handlePause}
           >
-            {isRunning ? PauseIcon : PlayIcon}
+            {isRunning || ((gameState.Over || gameState.win) && !isModalOpen)
+              ? PauseIcon
+              : PlayIcon}
           </Button>
         </>
       )}

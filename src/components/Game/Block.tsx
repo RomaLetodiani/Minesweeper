@@ -25,7 +25,7 @@ const Block = ({ hasMine, revealed, surroundingMines, flagged, row, col }: Block
       blockRef.current?.click()
     }
   }, [isLongPressed])
-  const { BlockOnClick } = useGame()
+  const { BlockOnClick, gameState } = useGame()
   const { mode } = useParams()
 
   // Block state logic should be done with background but i was in hurry so did it with tailwind CSS
@@ -47,7 +47,7 @@ const Block = ({ hasMine, revealed, surroundingMines, flagged, row, col }: Block
           </span>
         )}
       </span>
-      {!revealed && (
+      {!revealed && !gameState.win && !gameState.Over && (
         <div className="absolute select-none w-full h-full pointer-events-none bg-cyan-950 shadow-Block z-10">
           {flagged && '🚩'}
         </div>
